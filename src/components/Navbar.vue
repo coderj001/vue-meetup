@@ -5,20 +5,20 @@
             <v-toolbar-title>DevMeetUp</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-xs-only">
-                <v-btn outlined>
-                    <v-icon>mdi-account-supervisor</v-icon>
-                    VIEW MEETUP
+                <v-btn small color="deep-purple darken-1" v-for="item in menuItems" :key="item.title">
+                    <v-icon>mdi-{{item.icon}}</v-icon>
+                    {{item.title}}
                 </v-btn>
             </v-toolbar-items>
         </v-app-bar>
         <v-card class="mx-auto" height="400" width="256">
             <v-navigation-drawer v-model="sideNav">
                 <v-list>
-                    <v-list-item>
+                    <v-list-item v-for="item in menuItems" :key="item.title">
                         <v-list-item-action>
-                            <v-icon>mdi-account-supervisor</v-icon>
+                            <v-icon>mdi-{{item.icon}}</v-icon>
                         </v-list-item-action>
-                        <v-list-item-content>View Meetup</v-list-item-content>
+                        <v-list-item-content>{{item.title}}</v-list-item-content>
                     </v-list-item>
                 </v-list>
             </v-navigation-drawer>
@@ -32,6 +32,13 @@ export default {
     data() {
         return {
             sideNav: false,
+            menuItems: [
+                { icon: "account-supervisor", title: "View Meetup" },
+                { icon: "map-marker", title: "Organize Meetup" },
+                { icon: "account", title: "Profile" },
+                { icon: "face", title: "Sign Up" },
+                { icon: "login", title: "Sign In" },
+            ],
         };
     },
 };
