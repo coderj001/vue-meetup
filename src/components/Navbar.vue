@@ -6,23 +6,21 @@
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-xs-only">
                 <v-btn small color="deep-purple darken-1" v-for="item in menuItems" :key="item.title">
-                    <v-icon>mdi-{{item.icon}}</v-icon>
-                    {{item.title}}
+                    <v-icon>mdi-{{ item.icon }}</v-icon>
+                    {{ item.title }}
                 </v-btn>
             </v-toolbar-items>
         </v-app-bar>
-        <v-card class="mx-auto" height="400" width="256">
-            <v-navigation-drawer v-model="sideNav">
-                <v-list>
-                    <v-list-item v-for="item in menuItems" :key="item.title">
-                        <v-list-item-action>
-                            <v-icon>mdi-{{item.icon}}</v-icon>
-                        </v-list-item-action>
-                        <v-list-item-content>{{item.title}}</v-list-item-content>
-                    </v-list-item>
-                </v-list>
-            </v-navigation-drawer>
-        </v-card>
+        <v-navigation-drawer v-model="sideNav" app temporary>
+            <v-list>
+                <v-list-item v-for="item in menuItems" :key="item.title">
+                    <v-list-item-action>
+                        <v-icon>mdi-{{ item.icon }}</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>{{ item.title }}</v-list-item-content>
+                </v-list-item>
+            </v-list>
+        </v-navigation-drawer>
     </div>
 </template>
 
