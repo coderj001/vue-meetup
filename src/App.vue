@@ -16,8 +16,6 @@ export default {
         Navbar,
     },
 
-    data: () => ({
-        sideBar: false,
-    }),
+    data: () => ({}),
 };
 </script>
