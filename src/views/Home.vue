@@ -10,7 +10,7 @@
         </v-row>
         <v-row>
             <v-col cols="12">
-                <v-carousel style="cursor: pointer;">
+                <v-carousel style="cursor: pointer;" cycle show-arrows-on-hover>
                     <v-carousel-item v-for="meetup in meetups" :key="meetup.id" :src="meetup.imageUrl" reverse-transition="fade-transition" transition="fade-transition" @click="onLoadMeetup(meetup.id)">
                         <v-row class="fill-height" align="center" justify="center">
                             <div class="title">{{ meetup.title }}</div>

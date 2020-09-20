@@ -15,12 +15,12 @@
                                         <div>7th July 2020</div>
                                     </div>
                                 </v-card-title>
-                                <v-card-action>
-                                    <v-btn flat>
+                                <v-card-actions>
+                                    <v-btn text>
                                         <v-icon left light>mdi-arrow-right</v-icon>
                                         View Meetup
                                     </v-btn>
-                                </v-card-action>
+                                </v-card-actions>
                             </v-col>
                         </v-row>
                     </v-container>
