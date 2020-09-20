@@ -1,6 +1,6 @@
 <template>
-    <v-container fill-height fluid>
-        <v-row align="center" justify="center" class="mb-2 pl-5">
+    <v-container fill-height fill-width fluid>
+        <v-row align="center" justify="center">
             <v-col cols="6">
                 <v-btn large router to="/meetups" color="primary">Explore Meetup</v-btn>
             </v-col>
@@ -10,8 +10,8 @@
         </v-row>
         <v-row>
             <v-col cols="12">
-                <v-carousel>
-                    <v-carousel-item v-for="meetup in meetups" :key="meetup.id" :src="meetup.imageUrl" reverse-transition="fade-transition" transition="fade-transition">
+                <v-carousel style="cursor: pointer;">
+                    <v-carousel-item v-for="meetup in meetups" :key="meetup.id" :src="meetup.imageUrl" reverse-transition="fade-transition" transition="fade-transition" @click="onLoadMeetup(meetup.id)">
                         <v-row class="fill-height" align="center" justify="center">
                             <div class="title">{{ meetup.title }}</div>
                         </v-row>
@@ -38,6 +38,11 @@ export default {
                 { imageUrl: "https://i.ibb.co/tXx9r0K/science-city.jpg", id: "223n1j21o2", title: "Meet up in Science City" },
             ],
         };
+    },
+    methods: {
+        onLoadMeetup(id) {
+            this.$router.push({ name: "Meetup", params: { name: id } });
+        },
     },
 };
 </script>
