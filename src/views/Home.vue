@@ -31,17 +31,14 @@
 export default {
     name: "Home",
     components: {},
-    data() {
-        return {
-            meetups: [
-                { imageUrl: "https://i.ibb.co/MCCmYgp/1200px-Lake-Gardens-Kuala-Lumpur-03.jpg", id: "1jsi2jsnaq3", title: "Meet up in Lake Garden" },
-                { imageUrl: "https://i.ibb.co/tXx9r0K/science-city.jpg", id: "223n1j21o2", title: "Meet up in Science City" },
-            ],
-        };
-    },
     methods: {
         onLoadMeetup(id) {
             this.$router.push({ name: "Meetup", params: { name: id } });
+        },
+    },
+    computed: {
+        meetups() {
+            return this.$store.getters.featureMeetups;
         },
     },
 };
