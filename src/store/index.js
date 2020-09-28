@@ -11,13 +11,13 @@ export default new Vuex.Store({
           "https://i.ibb.co/MCCmYgp/1200px-Lake-Gardens-Kuala-Lumpur-03.jpg",
         id: "1jsi2jsnaq3",
         title: "Meet up in Lake Garden",
-        date: "2017-07-17"
+        date: new Date()
       },
       {
         imageUrl: "https://i.ibb.co/tXx9r0K/science-city.jpg",
         id: "223n1j21o2",
         title: "Meet up in Science City",
-        date: "2018-07-17"
+        date: new Date()
       }
     ],
     user: {

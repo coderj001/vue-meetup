@@ -7,11 +7,12 @@
                         <h3 class="primary--text">{{meetup.title}}</h3>
                     </v-card-title>
                     <v-card-subtitle>
-                        <div class="info--text">{{meetup.date}} - {{meetup.location}}</div>
+                        <div class="info--text">{{meetup.date | dateformat}} - {{meetup.location}}</div>
                     </v-card-subtitle>
                     <v-img class="" :src="meetup.imageUrl" height="400px"></v-img>
                     <v-card-text>
-                        <div>{{meetup.desciption}}</div>
+                        <div v-if="meetup.desciption != null">{{meetup.desciption}}</div>
+                        <div v-else>No Description</div>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
