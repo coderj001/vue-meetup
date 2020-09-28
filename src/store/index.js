@@ -21,10 +21,7 @@ export default new Vuex.Store({
         date: new Date()
       }
     ],
-    user: {
-      id: "anqlkw12m12",
-      registerdMeetups: ["aslkw1212"]
-    }
+    user: null
   },
   mutations: {
     createMeetup(state, payload) {
@@ -79,6 +76,9 @@ export default new Vuex.Store({
           return meetup.id == meetupId;
         });
       };
+    },
+    user(state) {
+      return state.user;
     }
   }
 });
