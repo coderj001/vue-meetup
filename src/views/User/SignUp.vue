@@ -51,8 +51,7 @@ export default {
     },
     methods: {
         onSignup() {
-            // TODO: Vuex
-            console.log(this.email, this.password, this.confirmPassword);
+            this.$store.dispatch("signUserUp", { email: this.email, password: this.password });
         },
     },
     computed: {
