@@ -25,8 +25,27 @@ export default new Vuex.Store({
       registerdMeetups: ["aslkw1212"]
     }
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    createMeetup(state, payload) {
+      state.loadedMeetups.push(payload);
+    }
+  },
+  actions: {
+    createMeetup({ commit }, payload) {
+      const meetup = {
+        title: payload.title,
+        location: payload.location,
+        imageUrl: payload.imageUrl,
+        desciption: payload.desciption,
+        date: payload.date,
+        id: Math.random()
+          .toString(36)
+          .substring(7)
+      };
+      // TODO: Add firebase
+      commit("createMeetup", meetup);
+    }
+  },
   getters: {
     loadedMeetups(state) {
       return state.loadedMeetups.sort((meetupA, meetupB) => {
