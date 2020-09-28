@@ -20,7 +20,7 @@
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="12" xs="12" class="text-xs-center">
+            <v-col cols="12" xs="12">
                 <p>Join Our Club</p>
             </v-col>
         </v-row>

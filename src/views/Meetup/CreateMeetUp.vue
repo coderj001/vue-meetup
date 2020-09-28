@@ -29,6 +29,16 @@
                         </v-col>
                     </v-row>
                     <v-row>
+                        <v-col cols="6" sm="6">
+                            <v-date-picker v-model="date"></v-date-picker>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="6" sm="6">
+                            <v-time-picker scrollable format="24hr" v-model="time"></v-time-picker>
+                        </v-col>
+                    </v-row>
+                    <v-row>
                         <v-col cols="12" sm="6">
                             <v-textarea outlined name="desciption" label="Description" v-model="desciption"></v-textarea>
                         </v-col>
@@ -54,6 +64,8 @@ export default {
             location: "",
             desciption: "",
             imageUrl: null,
+            date: new Date().toISOString().substr(0, 10),
+            time: new Date().toISOString().substr(11, 5),
         };
     },
     methods: {
@@ -63,10 +75,10 @@ export default {
                 location: this.location,
                 desciption: this.desciption,
                 imageUrl: this.imageUrl,
-                date: new Date(),
+                date: new Date(this.date+" "+this.time),
             };
             this.$store.dispatch("createMeetup", meetupData);
-            this.$router.push({name: 'Meetups'})
+            this.$router.push({ name: "Meetups" });
         },
     },
     computed: {

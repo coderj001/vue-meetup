@@ -7,11 +7,11 @@
                         <h3 class="primary--text">{{meetup.title}}</h3>
                     </v-card-title>
                     <v-card-subtitle>
-                        <div class="info--text">{{meetup.date}}</div>
+                        <div class="info--text">{{meetup.date}} - {{meetup.location}}</div>
                     </v-card-subtitle>
                     <v-img class="" :src="meetup.imageUrl" height="400px"></v-img>
                     <v-card-text>
-                        <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus consequuntur, temporibus, laudantium cum quos harum veritatis iste, cumque dolor tempore sint! Nam quisquam distinctio, ea repellat fuga facilis in unde.</div>
+                        <div>{{meetup.desciption}}</div>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
