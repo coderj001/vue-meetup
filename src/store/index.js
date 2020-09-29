@@ -49,9 +49,9 @@ export default new Vuex.Store({
       firebaseApp
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
-        .then(user => {
+        .then(obj => {
           const newUser = {
-            id: user.user.uid,
+            id: obj.user.uid,
             registerdMeetups: []
           };
           commit("setUser", newUser);

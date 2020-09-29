@@ -20,7 +20,7 @@
                 <v-list-item v-for="item in menuItems" :key="item.title" :to="item.link">
                     <v-list-item-action>
                         <v-btn>
-                            <span>{{item.title}}</span>
+                            <span>{{ item.title }}</span>
                             <v-icon>mdi-{{ item.icon }}</v-icon>
                         </v-btn>
                     </v-list-item-action>
@@ -36,14 +36,26 @@ export default {
     data() {
         return {
             sideNav: false,
-            menuItems: [
-                { icon: "account-supervisor", title: "View Meetup", link: { name: "Meetups" } },
-                { icon: "map-marker", title: "Organize Meetup", link: { name: "CreateMeetUp" } },
-                { icon: "account", title: "Profile", link: { name: "Profile" } },
+        };
+    },
+    computed: {
+        menuItems() {
+            let menuitem = [
                 { icon: "face", title: "Sign Up", link: { name: "SignUp" } },
                 { icon: "login", title: "Sign In", link: { name: "SignIn" } },
-            ],
-        };
+            ];
+            if (this.userIsAuth) {
+                menuitem = [
+                    { icon: "account-supervisor", title: "View Meetup", link: { name: "Meetups" } },
+                    { icon: "map-marker", title: "Organize Meetup", link: { name: "CreateMeetUp" } },
+                    { icon: "account", title: "Profile", link: { name: "Profile" } },
+                ];
+            }
+            return menuitem;
+        },
+        userIsAuth(){
+                return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+            }
     },
 };
 </script>

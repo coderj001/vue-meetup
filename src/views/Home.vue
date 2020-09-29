@@ -33,7 +33,7 @@ export default {
     components: {},
     methods: {
         onLoadMeetup(id) {
-            this.$router.push({ name: "Meetup", params: { name: id } });
+            this.$router.push({ name: "Meetup", params: { name: this.meetups.id } });
         },
     },
     computed: {
