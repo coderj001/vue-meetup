@@ -21,7 +21,9 @@ export default new Vuex.Store({
         date: new Date()
       }
     ],
-    user: null
+    user: null,
+    loading: false,
+    error: null
   },
   mutations: {
     createMeetup(state, payload) {
@@ -29,6 +31,15 @@ export default new Vuex.Store({
     },
     setUser(state, payload) {
       state.user = payload;
+    },
+    setLoading(state, payload) {
+      state.loading = payload;
+    },
+    setError(state, payload) {
+      state.error = payload;
+    },
+    clearError(state) {
+      state.error = null;
     }
   },
   actions: {
@@ -46,10 +57,13 @@ export default new Vuex.Store({
       commit("createMeetup", meetup);
     },
     signUserUp({ commit }, payload) {
+      commit("setLoading", true);
+      commit("clearError");
       firebaseApp
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
         .then(obj => {
+          commit("setLoading", true);
           const newUser = {
             id: obj.user.uid,
             registerdMeetups: []
@@ -57,14 +71,20 @@ export default new Vuex.Store({
           commit("setUser", newUser);
         })
         .catch(error => {
+          commit("setLoading", false);
+          commit("setError", error);
           console.log(error);
         });
     },
     signUserIn({ commit }, payload) {
+      commit("setLoading", true);
+      commit("clearError");
       firebaseApp
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
         .then(obj => {
+          commit("setLoading", false);
+          commit("clearError");
           const User = {
             id: obj.user.uid,
             registerdMeetups: []
@@ -72,6 +92,8 @@ export default new Vuex.Store({
           commit("setUser", User);
         })
         .catch(error => {
+          commit("setLoading", false);
+          commit("setError", error);
           console.log(error);
         });
     }

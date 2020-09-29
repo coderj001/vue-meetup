@@ -4,9 +4,12 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import DateFilter from "./filter/date";
+import AlertComp from "./components/Alert.vue";
 
 Vue.config.productionTip = false;
 Vue.filter("dateformat", DateFilter);
+
+Vue.component("app-alert", AlertComp);
 
 new Vue({
   router,

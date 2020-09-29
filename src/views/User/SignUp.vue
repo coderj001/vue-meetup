@@ -5,6 +5,11 @@
                 <v-card>
                     <v-card-text>
                         <v-container>
+                            <v-row>
+                                <v-col cols="12">
+                                    <app-alert @dismissed="onDismissed"></app-alert>
+                                </v-col>
+                            </v-row>
                             <h2>SignUp Form</h2>
                             <v-form ref="form" @submit.prevent="onSignup" lazy-validation>
                                 <v-row>
@@ -52,6 +57,9 @@ export default {
     methods: {
         onSignup() {
             this.$store.dispatch("signUserUp", { email: this.email, password: this.password });
+        },
+        onDismissed() {
+            console.log("Dismissed Alert!");
         },
     },
     computed: {
