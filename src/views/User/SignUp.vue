@@ -5,9 +5,9 @@
                 <v-card>
                     <v-card-text>
                         <v-container>
-                            <v-row>
+                            <v-row v-if="error">
                                 <v-col cols="12">
-                                    <app-alert @dismissed="onDismissed"></app-alert>
+                                    <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
                                 </v-col>
                             </v-row>
                             <h2>SignUp Form</h2>
@@ -59,7 +59,7 @@ export default {
             this.$store.dispatch("signUserUp", { email: this.email, password: this.password });
         },
         onDismissed() {
-            console.log("Dismissed Alert!");
+            this.$store.commit('clearError')
         },
     },
     computed: {
@@ -71,6 +71,9 @@ export default {
         },
         user() {
             return this.$store.getters.user;
+        },
+        error() {
+            return this.$store.getters.error;
         },
     },
     watch: {

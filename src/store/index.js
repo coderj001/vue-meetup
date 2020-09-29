@@ -104,7 +104,7 @@ export default new Vuex.Store({
         return meetupA.date > meetupB.date;
       });
     },
-    featureMeetups(state, getters) {
+    featureMeetups(getters) {
       return getters.loadedMeetups.slice(0, 5);
     },
     loadedMeetup(state) {
@@ -116,6 +116,12 @@ export default new Vuex.Store({
     },
     user(state) {
       return state.user;
+    },
+    error(state) {
+      return state.error;
+    },
+    loading(state) {
+      return state.loading;
     }
   }
 });

@@ -1,9 +1,10 @@
 <template>
-    <v-alert dense outlined dismissible @input="onClose" :value="true" type="error"> I'm a dense alert with the <strong>outlined</strong> prop and a <strong>type</strong> of error </v-alert>
+    <v-alert dense outlined dismissible @input="onClose" :value="true" type="error"><strong>Error: </strong>{{text}}</v-alert>
 </template>
 
 <script>
 export default {
+    props: ['text'],
     methods: {
         onClose() {
             this.$emit("dismissed");
