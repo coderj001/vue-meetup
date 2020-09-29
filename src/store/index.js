@@ -59,6 +59,21 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error);
         });
+    },
+    signUserIn({ commit }, payload) {
+      firebaseApp
+        .auth()
+        .signInWithEmailAndPassword(payload.email, payload.password)
+        .then(obj => {
+          const User = {
+            id: obj.user.uid,
+            registerdMeetups: []
+          };
+          commit("setUser", User);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   getters: {
