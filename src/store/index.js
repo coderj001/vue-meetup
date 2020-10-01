@@ -26,6 +26,9 @@ export default new Vuex.Store({
     error: null
   },
   mutations: {
+    setLoadedMeetups(state, payload) {
+      state.loadedMeetups = payload;
+    },
     createMeetup(state, payload) {
       state.loadedMeetups.push(payload);
     },
@@ -43,6 +46,32 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    loadedMeetups({ commit }) {
+      commit("setLoading", true);
+      firebaseApp
+        .database()
+        .ref("meetups")
+        .once("value")
+        .then(data => {
+          const meetups = [];
+          const obj = data.val();
+          for (let key in obj) {
+            meetups.push({
+              id: key,
+              title: obj[key].title,
+              desciption: obj[key].desciption,
+              imageUrl: obj[key].imageUrl,
+              date: obj[key].date
+            });
+          }
+          commit("setLoadedMeetups", meetups);
+          commit("setLoading", false);
+        })
+        .catch(err => {
+          console.log(err);
+          commit("setLoading", false);
+        });
+    },
     createMeetup({ commit }, payload) {
       const meetup = {
         title: payload.title,
