@@ -29,8 +29,11 @@
                                 </v-row>
                                 <v-row>
                                     <v-col cols="12" offset-lg="4">
-                                        <v-btn type="submit" :disabled="!validateButton" color="success" class="mr-4">
+                                        <v-btn type="submit" :disabled="loading" :loading="loading" color="success" class="mr-4">
                                             Sign Up
+                                            <span class="custom-loader">
+                                                <v-icon light>mdi-cached</v-icon>
+                                            </span>
                                         </v-btn>
                                     </v-col>
                                 </v-row>
@@ -59,13 +62,10 @@ export default {
             this.$store.dispatch("signUserUp", { email: this.email, password: this.password });
         },
         onDismissed() {
-            this.$store.commit('clearError')
+            this.$store.commit("clearError");
         },
     },
     computed: {
-        validateButton() {
-            return this.email !== "" && this.password !== "" && this.confirmPassword !== "";
-        },
         comparePassword() {
             return this.password !== this.confirmPassword ? "Passwords do not match" : "";
         },
@@ -75,6 +75,9 @@ export default {
         error() {
             return this.$store.getters.error;
         },
+        loading() {
+            return this.$store.getters.loading;
+        },
     },
     watch: {
         user(value) {
@@ -83,3 +86,42 @@ export default {
     },
 };
 </script>
+
+<style>
+.custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+}
+@-moz-keyframes loader {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes loader {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-o-keyframes loader {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes loader {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+</style>

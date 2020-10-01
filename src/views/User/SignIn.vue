@@ -5,6 +5,11 @@
                 <v-card>
                     <v-card-text>
                         <v-container>
+                            <v-row v-if="error">
+                                <v-col cols="12">
+                                    <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+                                </v-col>
+                            </v-row>
                             <h2>SignIn Form</h2>
                             <v-form ref="form" @submit.prevent="onSignIn" lazy-validation>
                                 <v-row>
@@ -19,8 +24,11 @@
                                 </v-row>
                                 <v-row>
                                     <v-col cols="12" offset-lg="4">
-                                        <v-btn type="submit" :disabled="!validateButton" color="success" class="mr-4">
-                                            Sign Up
+                                        <v-btn type="submit" :disabled="loading" :loading="loading" color="success" class="mr-4">
+                                            Sign In
+                                            <span class="custom-loader">
+                                                <v-icon light>mdi-cached</v-icon>
+                                            </span>
                                         </v-btn>
                                     </v-col>
                                 </v-row>
@@ -47,13 +55,19 @@ export default {
         onSignIn() {
             this.$store.dispatch("signUserIn", { email: this.email, password: this.password });
         },
+        onDismissed() {
+            this.$store.commit("clearError");
+        },
     },
     computed: {
-        validateButton() {
-            return this.email !== "" && this.password !== "";
-        },
         user() {
             return this.$store.getters.user;
+        },
+        error() {
+            return this.$store.getters.error;
+        },
+        loading() {
+            return this.$store.getters.loading;
         },
     },
     watch: {
