@@ -49,12 +49,22 @@ export default new Vuex.Store({
         location: payload.location,
         imageUrl: payload.imageUrl,
         desciption: payload.desciption,
-        date: payload.date,
-        id: Math.random()
-          .toString(36)
-          .substring(7)
+        date: payload.date.toISOString()
       };
-      commit("createMeetup", meetup);
+      firebaseApp
+        .database()
+        .ref("meetups")
+        .push(meetup)
+        .then(data => {
+          const key = data.key;
+          commit("createMeetup", {
+            ...meetup,
+            id: key
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     signUserUp({ commit }, payload) {
       commit("setLoading", true);
