@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
+import firebaseApp from "./firebase/init";
 import DateFilter from "./filter/date";
 import AlertComp from "./components/Alert.vue";
 
@@ -17,6 +18,11 @@ new Vue({
   vuetify,
   render: h => h(App),
   created() {
+    firebaseApp.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch("autoSignIn", user);
+      }
+    });
     this.$store.dispatch("loadedMeetups");
   }
 }).$mount("#app");

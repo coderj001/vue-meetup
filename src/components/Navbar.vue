@@ -13,6 +13,10 @@
                     <v-icon>mdi-{{ item.icon }}</v-icon>
                     {{ item.title }}
                 </v-btn>
+                <v-btn small color="deep-purple darken-1" v-show="userIsAuth" @click="signoutUser">
+                    <v-icon>mdi-account-arrow-right-outline</v-icon>
+                    SignOut
+                </v-btn>
             </v-toolbar-items>
         </v-app-bar>
         <v-navigation-drawer v-model="sideNav" app temporary>
@@ -22,6 +26,14 @@
                         <v-btn>
                             <span>{{ item.title }}</span>
                             <v-icon>mdi-{{ item.icon }}</v-icon>
+                        </v-btn>
+                    </v-list-item-action>
+                </v-list-item>
+                <v-list-item v-show="userIsAuth">
+                    <v-list-item-action>
+                        <v-btn @click="signoutUser">
+                            <span>SignOut</span>
+                            <v-icon>mdi-account-arrow-right-outline</v-icon>
                         </v-btn>
                     </v-list-item-action>
                 </v-list-item>
@@ -53,9 +65,14 @@ export default {
             }
             return menuitem;
         },
-        userIsAuth(){
-                return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-            }
+        userIsAuth() {
+            return this.$store.getters.user !== null && this.$store.getters.user !== undefined;
+        },
+    },
+    methods: {
+        signoutUser() {
+            this.$store.dispatch("logout");
+        },
     },
 };
 </script>

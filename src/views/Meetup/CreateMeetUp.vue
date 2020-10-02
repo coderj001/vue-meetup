@@ -20,7 +20,7 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="6">
-                            <v-text-field name="imageUrl" label="Image Url" id="imageUrl" v-model="imageUrl" required></v-text-field>
+                            <v-file-input multiple label="File input"></v-file-input>
                         </v-col>
                     </v-row>
                     <v-row v-show="imageUrl">
@@ -75,7 +75,7 @@ export default {
                 location: this.location,
                 desciption: this.desciption,
                 imageUrl: this.imageUrl,
-                date: new Date(this.date+" "+this.time),
+                date: new Date(this.date + " " + this.time),
             };
             this.$store.dispatch("createMeetup", meetupData);
             this.$router.push({ name: "Meetups" });
