@@ -72,12 +72,12 @@ export default {
     },
     methods: {
         onCreateMeetup() {
-            if (!this.formIsValid){
-                    return
-                }
-            if (!this.image){
-                    return
-                }
+            if (!this.formIsValid) {
+                return;
+            }
+            if (!this.image) {
+                return;
+            }
             const meetupData = {
                 title: this.title,
                 location: this.location,

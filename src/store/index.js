@@ -32,6 +32,15 @@ export default new Vuex.Store({
     createMeetup(state, payload) {
       state.loadedMeetups.push(payload);
     },
+    updateMeetup(state, payload) {
+      const meetup = state.loadedMeetups.find(meetup => {
+        return meetup.id === payload.id;
+      });
+      if (payload.title) meetup.title = payload.title;
+      if (payload.desciption) meetup.desciption = payload.desciption;
+      if (payload.location) meetup.location = payload.location;
+      if (payload.date) meetup.date = payload.date;
+    },
     setUser(state, payload) {
       state.user = payload;
     },
@@ -62,6 +71,7 @@ export default new Vuex.Store({
               desciption: obj[key].desciption,
               imageUrl: obj[key].imageUrl,
               date: obj[key].date,
+              location: obj[key].location,
               creatorId: obj[key].creatorId
             });
           }
@@ -105,7 +115,6 @@ export default new Vuex.Store({
             .getDownloadURL()
             .then(url => {
               imageUrl = url;
-              // TODO: image due to asyn not update to db
               return firebaseApp
                 .database()
                 .ref("meetups")
@@ -171,6 +180,27 @@ export default new Vuex.Store({
     logout({ commit }) {
       firebaseApp.auth().signOut();
       commit("setUser", null);
+    },
+    updateMeetupData({ commit }, payload) {
+      commit("setLoading", true);
+      const updateObj = {};
+      if (payload.title) updateObj.title = payload.title;
+      if (payload.desciption) updateObj.desciption = payload.desciption;
+      if (payload.location) updateObj.location = payload.location;
+      if (payload.date) updateObj.date = payload.date;
+      firebaseApp
+        .database()
+        .ref("meetups")
+        .child(payload.id)
+        .update(updateObj)
+        .then(() => {
+          commit("setLoading", false);
+          commit("updateMeetup", payload);
+        })
+        .catch(err => {
+          console.log(err);
+          commit("setLoading", false);
+        });
     }
   },
   getters: {
