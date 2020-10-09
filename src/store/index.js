@@ -100,26 +100,28 @@ export default new Vuex.Store({
             .put(payload.image);
         })
         .then(fileData => {
-          // TODO: Image ref not found
           imageUrl = null;
-          fileData.ref.getDownloadURL().then(url => {
-            imageUrl = url;
-          });
-          return firebaseApp
-            .database()
-            .ref("meetups")
-            .child(key)
-            .update({ imageUrl: imageUrl });
-        })
-        .then(() => {
-          commit("createMeetup", {
-            ...meetup,
-            imageUrl: imageUrl,
-            id: key
-          });
-        })
-        .catch(err => {
-          console.log(err);
+          fileData.ref
+            .getDownloadURL()
+            .then(url => {
+              imageUrl = url;
+              // TODO: image due to asyn not update to db
+              return firebaseApp
+                .database()
+                .ref("meetups")
+                .child(key)
+                .update({ imageUrl: imageUrl });
+            })
+            .then(() => {
+              commit("createMeetup", {
+                ...meetup,
+                imageUrl: imageUrl,
+                id: key
+              });
+            })
+            .catch(err => {
+              console.log(err);
+            });
         });
     },
     signUserUp({ commit }, payload) {
