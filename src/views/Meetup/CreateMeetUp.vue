@@ -20,7 +20,7 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="6">
-                            <v-file-input multiple label="File input"></v-file-input>
+                            <v-file-input multiple label="File input" chips v-on:change="changeFile" v-model="files"></v-file-input>
                         </v-col>
                     </v-row>
                     <v-row v-show="imageUrl">
@@ -63,22 +63,42 @@ export default {
             title: "",
             location: "",
             desciption: "",
+            files: [],
             imageUrl: null,
             date: new Date().toISOString().substr(0, 10),
             time: new Date().toISOString().substr(11, 5),
+            image: null,
         };
     },
     methods: {
         onCreateMeetup() {
+            if (!this.formIsValid){
+                    return
+                }
+            if (!this.image){
+                    return
+                }
             const meetupData = {
                 title: this.title,
                 location: this.location,
                 desciption: this.desciption,
-                imageUrl: this.imageUrl,
+                image: this.image,
                 date: new Date(this.date + " " + this.time),
             };
             this.$store.dispatch("createMeetup", meetupData);
             this.$router.push({ name: "Meetups" });
+        },
+        changeFile() {
+            let filename = this.files[0].name;
+            if (filename.lastIndexOf(".") <= 0) {
+                return alert("Please add a valid file.");
+            }
+            const fileReader = new FileReader();
+            fileReader.addEventListener("load", () => {
+                this.imageUrl = fileReader.result;
+            });
+            fileReader.readAsDataURL(this.files[0]);
+            this.image = this.files[0];
         },
     },
     computed: {
