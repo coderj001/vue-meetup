@@ -22,7 +22,7 @@
                         </v-col>
                     </v-row>
                     <v-row>
-                        <v-col cols="12" sm="6">
+                       <v-col cols="12" sm="6">
                             <v-textarea outlined name="desciption" label="Description" v-model="editedDesciption"></v-textarea>
                         </v-col>
                     </v-row>

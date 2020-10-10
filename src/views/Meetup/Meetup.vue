@@ -14,7 +14,8 @@
                         <h3 class="primary--text">{{ meetup.title }}</h3>
                         <template v-if="userIsCreator">
                             <v-spacer></v-spacer>
-                        <edit-meetup v-show="loading" v-bind:meetup="meetup"></edit-meetup>
+                        <edit-meetup-data v-show="loading" v-bind:meetup="meetup"></edit-meetup-data>
+                        <edit-meetup-date v-show="loading" v-bind:meetup="meetup"></edit-meetup-date>
                         </template>
                     </v-card-title>
                     <v-card-subtitle>
@@ -37,10 +38,12 @@
 
 <script>
 import EditMeetup from "@/components/Edit/EditMeetupDetailsDialog.vue";
+import EditMeetupDate from "@/components/Edit/EditMeetupDateDialog.vue";
 export default {
     name: "Meetup",
     components: {
-        "edit-meetup": EditMeetup,
+        "edit-meetup-data": EditMeetup,
+        "edit-meetup-date": EditMeetupDate,
     },
     computed: {
         meetup() {
